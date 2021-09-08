@@ -1,0 +1,7 @@
+{
+  "name": "noThief",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
