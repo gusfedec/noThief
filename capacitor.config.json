@@ -1,6 +1,11 @@
 {
-	"appId": "io.ionic.starter",
+	"appId": "com.gusfedec.noThief",
 	"appName": "noThief",
 	"webDir": "www",
-	"bundledWebRuntime": false
+	"bundledWebRuntime": false,
+	"plugins": {
+		"SplashScreen": {
+			"launchShowDuration": 3000
+		}
+	}
 }

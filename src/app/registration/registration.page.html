@@ -1,0 +1,58 @@
+<ion-header padding>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="goToLoginPage()">
+        <ion-icon name="arrow-back-outline" size="large" color="success"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid style="height: 100%;">
+    <ion-row class="ion-justify-content-center" style="height: 100%;">
+      <ion-col class="ion-align-self-center">
+        <figure class="ion-text-center">
+          <img src="assets/img/icon.png" alt="Platzi Logo" width="300px" />
+        </figure>
+        <form [formGroup]="registerForm" (ngSubmit)="signUp()" novalidate>
+          <ion-item lines="full">
+            <ion-label position="floating" color="success">Correo Electrónico</ion-label>
+            <ion-icon name="mail-open" slot="start"></ion-icon>
+            <ion-input formControlName="email" type="email"></ion-input>
+          </ion-item>
+          <span class="error ion-padding" *ngIf="isSubmitted && errorControl.email.errors?.required">
+            Campo Obligatorio.
+          </span>
+          <span class="error ion-padding" *ngIf="isSubmitted && errorControl.email.errors?.email">
+            Debe ser un correo electrónico válido.
+          </span>
+
+          <ion-item lines="full">
+            <ion-label position="floating" color="success">Contraseña</ion-label>
+            <ion-icon name="lock-closed-outline" slot="start"></ion-icon>
+            <ion-input formControlName="password" type="password"></ion-input>
+          </ion-item>
+          <span class="error ion-padding" *ngIf="isSubmitted && errorControl.password.errors?.required">
+            Campo Obligatorio.
+          </span>
+          <span class="error ion-padding" *ngIf="isSubmitted && errorControl.password.errors?.minlength">
+            Debe tener mínimo 6 caracteres de longitud.
+          </span>
+
+          <ion-row>
+            <ion-col>
+              <ion-button type="submit" shape="round" class="submit-btn button-block" color="success"
+                [disabled]="!registerForm.valid">Registrar
+                <ion-spinner *ngIf="cargando" name="dots">
+                </ion-spinner>
+              </ion-button>
+            </ion-col>
+          </ion-row>
+        </form>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-button [routerLink]="['/dashboard']" expand="block">Panel de administración</ion-button>
+</ion-content>

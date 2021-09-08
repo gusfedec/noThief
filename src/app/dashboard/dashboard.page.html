@@ -1,0 +1,13 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button></ion-back-button>
+        </ion-buttons>
+        <ion-title>Bienvenido {{user.email}}</ion-title>
+    </ion-toolbar>
+</ion-header>
+<ion-content>
+    <ion-button type="submit" (click)="signOut()" expand="block">Cerrar sesión<ion-spinner *ngIf="cargando" name="dots">
+        </ion-spinner>
+    </ion-button>
+</ion-content>
