@@ -25,13 +25,18 @@ export class LoginPage implements OnInit {
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
+      email: [, [Validators.required, Validators.email]],
+      password: [, [Validators.required, Validators.minLength(6)]],
     });
   }
 
-  get errorControl() {
-    return this.loginForm.controls;
+  // Easy access for form fields
+  get email() {
+    return this.loginForm.get('email');
+  }
+
+  get password() {
+    return this.loginForm.get('password');
   }
 
   logIn() {

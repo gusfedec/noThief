@@ -1,108 +1,54 @@
-<!-- <ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
-    </ion-buttons>
-    <ion-title>Iniciar de sesión</ion-title>
+<ion-header>
+  <ion-toolbar class="main-color">
+    <ion-title>No Thief</ion-title>
   </ion-toolbar>
-</ion-header> -->
+</ion-header>
 
 <ion-content>
-  <ion-grid style="height: 100%;">
-    <ion-row class="ion-justify-content-center" style="height: 100%;">
-      <ion-col class="ion-align-self-center">
-        <figure class="ion-text-center">
-          <img src="assets/img/icon.png" alt="Platzi Logo" width="300px" />
-        </figure>
-        <div>
-          <form [formGroup]="loginForm" (ngSubmit)="logIn()" novalidate>
-            <ion-item lines="full">
-              <ion-label position="floating" color="success">Correo Electrónico</ion-label>
-              <ion-icon name="mail-open" slot="start"></ion-icon>
-              <ion-input formControlName="email" type="email"></ion-input>
-            </ion-item>
-            <span class="error ion-padding" *ngIf="isSubmitted && errorControl.email.errors?.required">
-              Campo Obligatorio.
-            </span>
-            <span class="error ion-padding" *ngIf="isSubmitted && errorControl.email.errors?.email">
-              Debe ser un correo electrónico válido.
-            </span>
 
-            <ion-item lines="full">
-              <ion-label position="floating" color="success">Contraseña</ion-label>
-              <ion-icon name="lock-closed-outline" slot="start"></ion-icon>
-              <ion-input formControlName="password" type="password"></ion-input>
-            </ion-item>
-            <span class="error ion-padding" *ngIf="isSubmitted && errorControl.password.errors?.required">
-              Campo Obligatorio.
-            </span>
-            <span class="error ion-padding" *ngIf="isSubmitted && errorControl.password.errors?.minlength">
-              Debe tener mínimo 6 caracteres de longitud.
-            </span>
+  <form (ngSubmit)="logIn()" [formGroup]="loginForm">
+    <div class="input-group">
+      <ion-item>
+        <ion-input type="email" placeholder="Correo Electrónico" formControlName="email"></ion-input>
+      </ion-item>
+      <div *ngIf="(email.dirty || email.touched) && email.errors" class="errors">
+        <span *ngIf="email.errors?.required">Correo electrónico obligatorio.</span>
+        <span *ngIf="email.errors?.email">Correo electrónico inválido.</span>
+      </div>
+      <ion-item>
+        <ion-input type="password" placeholder="Contraseña" formControlName="password"></ion-input>
+      </ion-item>
+      <div *ngIf="(password.dirty || password.touched) && password.errors" class="errors">
+        <span *ngIf="password.errors?.required">Contraseña obligatoria.</span>
+        <span *ngIf="password.errors?.minlength">Debe tener mínimo 6 caracteres de longitud.</span>
+      </div>
+    </div>
 
-            <ion-row>
-              <ion-col>
-                <ion-button color="success" shape="round" class="submit-btn button-block" type="submit"
-                  [disabled]="!loginForm.valid">Loguear
-                  <ion-spinner *ngIf="cargando" name="dots">
-                  </ion-spinner>
-                </ion-button>
-              </ion-col>
-            </ion-row>
-          </form>
-        </div>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
-  <ion-grid>
-    <ion-row>
-      <ion-col>
-        <ion-button color="success" shape="round" class="submit-btn button-block" (click)="loguearAs('admin')">
-          Admin
-          <ion-spinner *ngIf="cargando" name="dots">
-          </ion-spinner>
-        </ion-button>
-      </ion-col>
-      <ion-col>
-        <ion-button color="success" shape="round" class="submit-btn button-block" (click)="loguearAs('invitado')">
-          Invitado
-          <ion-spinner *ngIf="cargando" name="dots">
-          </ion-spinner>
-        </ion-button>
-      </ion-col>
-      <ion-col>
-        <ion-button color="success" shape="round" class="submit-btn button-block" (click)="loguearAs('usuario')">
-          Usuario
-          <ion-spinner *ngIf="cargando" name="dots">
-          </ion-spinner>
-        </ion-button>
-      </ion-col>
-      <ion-col>
-        <ion-button color="success" shape="round" class="submit-btn button-block" (click)="loguearAs('anonimo')">
-          Anonimo
-          <ion-spinner *ngIf="cargando" name="dots">
-          </ion-spinner>
-        </ion-button>
-      </ion-col>
-      <ion-col>
-        <ion-button color="success" shape="round" class="submit-btn button-block" (click)="loguearAs('tester')">
-          Tester
-          <ion-spinner *ngIf="cargando" name="dots">
-          </ion-spinner>
-        </ion-button>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+    <ion-button type="submit" expand="block" [disabled]="!loginForm.valid" class="main-color">Log in</ion-button>
+    <ion-button type="button" expand="block" color="dark" fill="clear" [routerLink]="['/registration']">No sos usuario?
+      Registrate!
+    </ion-button>
+
+    <ion-button type="button" expand="block" class="main-color">
+      <ion-icon name="person" slot="start"></ion-icon>
+      Admin
+    </ion-button>
+    <ion-button type="button" expand="block" class="main-color">
+      <ion-icon name="person" slot="start"></ion-icon>
+      Invitado
+    </ion-button>
+    <ion-button type="button" expand="block" class="main-color">
+      <ion-icon name="person" slot="start"></ion-icon>
+      Usuario
+    </ion-button>
+    <ion-button type="button" expand="block" class="main-color">
+      <ion-icon name="person" slot="start"></ion-icon>
+      Anonimo
+    </ion-button>
+    <ion-button type="button" expand="block" class="main-color">
+      <ion-icon name="person" slot="start"></ion-icon>
+      Tester
+    </ion-button>
+  </form>
+
 </ion-content>
-<ion-footer>
-  <ion-grid style="height: 100%;">
-    <ion-row style="height: 100%;">
-      <ion-col class="ion-align-self-center">
-        <div>
-          <ion-button color="success" shape="round" fill="outline" class="button-block"
-            [routerLink]="['/registration']">Registrar</ion-button>
-        </div>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
-</ion-footer>

@@ -1,16 +1,22 @@
-.ion-loading-class {
-    --background:#f408e8;
-    --spinner-color:#ffffff;
+ion-content {
+  --padding-top: 40%;
+  --padding-start: 10%;
+  --padding-end: 10%;
+  --background: url('../../assets/img/candado.png') 0 0px/100% 100% no-repeat #000;
 }
-.submit-btn {
-    margin-top: 30px;
-    margin-bottom: 30px;
-  }
-  ion-footer {
-    height: 100px;
-  }
-  ion-footer > ion-button {
-    vertical-align: middle;
-    margin: 36px 0 36px 0;
-  }
-  
+
+.input-group {
+  background: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 15px;
+}
+
+.errors {
+  font-size: small;
+  color: #fff;
+  background: #ea4d33;
+  padding-left: 15px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
