@@ -1,6 +1,6 @@
 //https://www.positronx.io/ionic-firebase-authentication-tutorial-with-examples/
 import { Injectable, NgZone } from '@angular/core';
-//import { auth } from 'firebase/app';
+import * as firebase from 'firebase/compat/app';
 import { User } from './user';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
@@ -25,6 +25,10 @@ export class AuthenticationService {
     this.ngFireAuth.authState.subscribe((user) => {
       if (user) {
         console.log(user);
+
+        firebase.default.auth().onAuthStateChanged((user) => {
+          console.log(user);
+        });
 
         this.userData = user;
         localStorage.setItem('user', JSON.stringify(this.userData));
