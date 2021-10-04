@@ -1,6 +1,6 @@
 //https://www.positronx.io/ionic-firebase-authentication-tutorial-with-examples/
 import { Injectable, NgZone } from '@angular/core';
-import * as firebase from 'firebase/compat/app';
+//import { auth } from 'firebase/app';
 import { User } from './user';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
@@ -9,12 +9,15 @@ import {
   AngularFirestore,
   AngularFirestoreDocument,
 } from '@angular/fire/compat/firestore';
+import { BehaviorSubject, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthenticationService {
   userData: any;
+  subject = new BehaviorSubject(false);
+  usuario = new BehaviorSubject(null);
 
   constructor(
     public afStore: AngularFirestore,
@@ -25,19 +28,17 @@ export class AuthenticationService {
     this.ngFireAuth.authState.subscribe((user) => {
       if (user) {
         console.log(user);
-
-        firebase.default.auth().onAuthStateChanged((user) => {
-          console.log(user);
-        });
-
+        this.subject.next(true);
         this.userData = user;
         localStorage.setItem('user', JSON.stringify(this.userData));
         JSON.parse(localStorage.getItem('user'));
+        this.usuario.next(this.userData);
       } else {
         console.log('a');
-
+        this.subject.next(false);
         localStorage.setItem('user', null);
         JSON.parse(localStorage.getItem('user'));
+        this.usuario.next(null);
       }
     });
   }
@@ -48,8 +49,9 @@ export class AuthenticationService {
       .signInWithEmailAndPassword(email, password)
       .then((result) => {
         console.log(result);
-
+        this.subject.next(true);
         this.SetUserData(result.user);
+        this.usuario.next(result.user);
       });
   }
 
@@ -58,6 +60,7 @@ export class AuthenticationService {
     return this.ngFireAuth
       .createUserWithEmailAndPassword(email, password)
       .then((result) => {
+        this.subject.next(true);
         this.SetUserData(result.user);
       });
   }
@@ -76,6 +79,10 @@ export class AuthenticationService {
       });
   }
 
+  get isLogged(): boolean {
+    return this.subject.value;
+  }
+
   // Returns true when user is looged in
   get isLoggedIn(): boolean {
     const user = JSON.parse(localStorage.getItem('user'));
@@ -85,6 +92,10 @@ export class AuthenticationService {
 
   getUser(): String {
     return JSON.parse(localStorage.getItem('user'));
+  }
+
+  getUsuario(): any {
+    return this.usuario.value;
   }
 
   // Returns true when user's email is verified
@@ -129,6 +140,10 @@ export class AuthenticationService {
     return userRef.set(userData, {
       merge: true,
     });
+  }
+
+  getUserByKey(key) {
+    return this.afStore.collection('users').doc(key).snapshotChanges();
   }
 
   // Sign-out
