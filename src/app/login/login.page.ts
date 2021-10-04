@@ -51,7 +51,7 @@ export class LoginPage implements OnInit {
         .SignIn(this.loginForm.value.email, this.loginForm.value.password)
         .then((res) => {
           console.log(res);
-          this.router.navigate(['messagelogin']);
+          this.router.navigate(['principal']);
           /* if (this.authService.isEmailVerified) {
 
         } else {
@@ -115,7 +115,7 @@ export class LoginPage implements OnInit {
       .SignIn(data.email, data.password)
       .then((res) => {
         console.log(res);
-        this.router.navigate(['messagelogin']);
+        this.router.navigate(['principal']);
       })
       .catch((error) => {
         console.log(error.code);

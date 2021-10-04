@@ -34,16 +34,14 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
-    path: 'messagelogin',
-    loadChildren: () =>
-      import('./messagelogin/messagelogin.module').then(
-        (m) => m.MessageloginPageModule
-      ),
-  },
-  {
     path: 'home',
     loadChildren: () =>
       import('./home/home.module').then((m) => m.HomePageModule),
+  },
+  {
+    path: 'principal',
+    loadChildren: () =>
+      import('./principal/principal.module').then((m) => m.PrincipalPageModule),
   },
 ];
 
