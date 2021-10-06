@@ -13,6 +13,9 @@ import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { environment } from '../environments/environment';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NativeAudio } from '@ionic-native/native-audio/ngx';
+import { DeviceMotion } from '@ionic-native/device-motion/ngx';
+import { Flashlight } from '@ionic-native/flashlight/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -30,6 +33,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   ],
   providers: [
     AngularFirestoreModule,
+    NativeAudio,
+    DeviceMotion,
+    Flashlight,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
   ],
   bootstrap: [AppComponent],
