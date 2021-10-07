@@ -23,6 +23,7 @@ export class LoginPage implements OnInit {
   ) {}
 
   ngOnInit() {
+    //this.router.navigateByUrl('principal', { replaceUrl: true });
     this.loginForm = this.formBuilder.group({
       email: [, [Validators.required, Validators.email]],
       password: [, [Validators.required, Validators.minLength(6)]],

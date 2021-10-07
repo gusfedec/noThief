@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import {
   DeviceMotion,
   DeviceMotionAccelerationData,
   DeviceMotionAccelerometerOptions,
 } from '@ionic-native/device-motion/ngx';
+import { Observable } from 'rxjs';
 import { ToastService } from '../shared/toast.service';
 
 @Component({
@@ -17,17 +19,22 @@ export class PrincipalPage implements OnInit {
   z: number;
   currentState: string;
 
+  watch: Boolean = false;
+  subscription;
   options: DeviceMotionAccelerometerOptions = {
     frequency: 1000,
   };
 
   constructor(
     private deviceMotion: DeviceMotion,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private router: Router
   ) {}
 
-  ngOnInit() {
-    this.deviceMotion
+  ngOnInit() {}
+  startWatch() {
+    this.watch = true;
+    this.subscription = this.deviceMotion
       .watchAcceleration(this.options)
       .subscribe((acceleration: DeviceMotionAccelerationData) => {
         console.log(acceleration);
@@ -77,5 +84,9 @@ export class PrincipalPage implements OnInit {
           console.log('z');
         }
       });
+  }
+  stopWatch() {
+    this.watch = false;
+    this.subscription.unsubscribe();
   }
 }

@@ -9,8 +9,14 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <ion-text>X: {{x}}</ion-text><br>
+<ion-content id="container">
+  <ion-row class="ion-align-items-center" style="height: 100%;">
+    <ion-col class="ion-text-center">
+      <ion-icon *ngIf="!watch" (click)="startWatch();" style="font-size: 64px;" name="lock-closed"></ion-icon>
+      <ion-icon *ngIf="watch" (click)="stopWatch();" style="font-size: 64px;" name="lock-open"></ion-icon>
+    </ion-col>
+  </ion-row>
+
   <ion-text>X: {{x | number: '1.2-2'}}</ion-text><br>
   <ion-text>Y: {{y | number: '1.2-2'}}</ion-text><br>
   <ion-text>Z: {{z | number: '1.2-2'}}</ion-text>
