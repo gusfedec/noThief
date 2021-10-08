@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { SplashScreen } from '@capacitor/splash-screen';
 import { AnimationController } from '@ionic/angular';
 import { AnimationService } from '../shared/animation.service';
+import { AuthenticationService } from '../shared/authentication-service';
 
 @Component({
   selector: 'app-home',
@@ -15,7 +16,8 @@ export class HomePage {
   constructor(
     private animationController: AnimationController,
     private router: Router,
-    private animationService: AnimationService
+    private animationService: AnimationService,
+    public authService: AuthenticationService
   ) {}
 
   async ionViewDidEnter() {
