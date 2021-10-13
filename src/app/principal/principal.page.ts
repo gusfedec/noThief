@@ -5,7 +5,9 @@ import {
   DeviceMotionAccelerationData,
   DeviceMotionAccelerometerOptions,
 } from '@ionic-native/device-motion/ngx';
+import { AlertController } from '@ionic/angular';
 import { Observable } from 'rxjs';
+import { AuthenticationService } from '../shared/authentication-service';
 import { ToastService } from '../shared/toast.service';
 
 @Component({
@@ -19,6 +21,8 @@ export class PrincipalPage implements OnInit {
   z: number;
   currentState: string;
 
+  usuario: any;
+
   watch: Boolean = false;
   subscription;
   options: DeviceMotionAccelerometerOptions = {
@@ -28,10 +32,15 @@ export class PrincipalPage implements OnInit {
   constructor(
     private deviceMotion: DeviceMotion,
     private toastService: ToastService,
-    private router: Router
+    private router: Router,
+    public authService: AuthenticationService,
+    private alertController: AlertController
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.usuario = this.authService.getUsuario();
+  }
+
   startWatch() {
     this.watch = true;
     this.subscription = this.deviceMotion
@@ -88,5 +97,42 @@ export class PrincipalPage implements OnInit {
   stopWatch() {
     this.watch = false;
     this.subscription.unsubscribe();
+  }
+  showPrompt() {
+    let pass = this.authService.getPassword();
+    console.log(pass);
+    this.alertController
+      .create({
+        header: '',
+        subHeader: '',
+        message: 'Ingrese su contraseña',
+        inputs: [
+          {
+            name: 'password',
+            placeholder: 'Contraseña',
+          },
+        ],
+        buttons: [
+          {
+            text: 'Cancelar',
+            handler: (data: any) => {
+              console.log('Canceled', data);
+            },
+          },
+          {
+            text: 'Ingresar',
+            handler: (data: any) => {
+              console.log('Saved Information', data);
+              console.log(data.password);
+              if (pass == data.password) {
+                this.stopWatch();
+              }
+            },
+          },
+        ],
+      })
+      .then((res) => {
+        res.present();
+      });
   }
 }

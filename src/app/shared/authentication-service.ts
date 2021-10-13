@@ -19,6 +19,7 @@ export class AuthenticationService {
   userData: any;
   subject = new BehaviorSubject(false);
   usuario = new BehaviorSubject(null);
+  password = new BehaviorSubject(null);
 
   constructor(
     public afStore: AngularFirestore,
@@ -58,6 +59,7 @@ export class AuthenticationService {
         this.subject.next(true);
         this.SetUserData(result.user);
         this.usuario.next(result.user);
+        this.password.next(password);
       });
   }
 
@@ -68,6 +70,7 @@ export class AuthenticationService {
       .then((result) => {
         this.subject.next(true);
         this.SetUserData(result.user);
+        this.password.next(password);
       });
   }
 
@@ -102,6 +105,10 @@ export class AuthenticationService {
 
   getUsuario(): any {
     return this.usuario.value;
+  }
+
+  getPassword(): any {
+    return this.password.value;
   }
 
   // Returns true when user's email is verified
@@ -157,6 +164,7 @@ export class AuthenticationService {
     return this.ngFireAuth.signOut().then(() => {
       localStorage.removeItem('user');
       this.router.navigate(['login']);
+      this.password.next(null);
     });
   }
 }

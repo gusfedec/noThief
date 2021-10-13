@@ -15,7 +15,7 @@
   <ion-row class="ion-align-items-center" style="height: 100%;">
     <ion-col class="ion-text-center">
       <ion-icon *ngIf="!watch" (click)="startWatch();" style="font-size: 340px;" name="lock-open"></ion-icon>
-      <ion-icon *ngIf="watch" (click)="stopWatch();" style="font-size: 340px;" name="lock-closed"></ion-icon>
+      <ion-icon *ngIf="watch" (click)="showPrompt();" style="font-size: 340px;" name="lock-closed"></ion-icon>
     </ion-col>
   </ion-row>
 
