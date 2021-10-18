@@ -7,11 +7,17 @@ import { IonicModule } from '@ionic/angular';
 import { PrincipalPageRoutingModule } from './principal-routing.module';
 
 import { PrincipalPage } from './principal.page';
-import { GetUserFromEmail } from '../get-user-from-email.pipe';
 import { LogoutComponent } from '../logout/logout.component';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
-  imports: [CommonModule, FormsModule, IonicModule, PrincipalPageRoutingModule],
-  declarations: [PrincipalPage, GetUserFromEmail, LogoutComponent],
+  imports: [
+    CommonModule,
+    FormsModule,
+    IonicModule,
+    SharedModule,
+    PrincipalPageRoutingModule,
+  ],
+  declarations: [PrincipalPage, LogoutComponent],
 })
 export class PrincipalPageModule {}

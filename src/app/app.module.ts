@@ -16,10 +16,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NativeAudio } from '@ionic-native/native-audio/ngx';
 import { DeviceMotion } from '@ionic-native/device-motion/ngx';
 import { Flashlight } from '@ionic-native/flashlight/ngx';
-import { GetUserFromEmail } from './get-user-from-email.pipe';
 
 @NgModule({
-  declarations: [AppComponent, GetUserFromEmail],
+  declarations: [AppComponent],
   entryComponents: [],
   imports: [
     BrowserModule,
@@ -37,7 +36,6 @@ import { GetUserFromEmail } from './get-user-from-email.pipe';
     NativeAudio,
     DeviceMotion,
     Flashlight,
-    GetUserFromEmail,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
   ],
   bootstrap: [AppComponent],
